@@ -1,0 +1,8 @@
+.unique-select{
+    padding: 5px 15px;
+    color: #cca2fd;
+    font-size: 14px;
+    background: transparent;
+    border: 1px solid #cca2fd;
+    cursor: pointer;
+}

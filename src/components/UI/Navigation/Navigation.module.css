@@ -1,0 +1,108 @@
+:root{
+    --backround-header: #ffffff;
+    --basic-white: #FFFFFF;
+    --basic-grey: #F2F2F2;
+    --basic-black: #000000;
+    --select-color: #ce96f6;
+
+}
+
+.submenu
+{
+
+}
+
+.container {
+    margin: 0 auto;
+    padding: 0 10px;
+    width: 1180px;
+}
+
+a
+{
+    text-decoration: none;
+}
+.main-navigation
+{
+    font-family: 'Open Sans', serif;
+    font-style: normal;
+    background-color: transparent;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+.main-navigation-wrapper
+{
+    width: 100%;
+    background-color: var(--basic-white);
+    box-shadow: 6px 4px 12px rgba(0, 0, 0, 0.19);
+}
+.main-navigation-wrapper .container
+{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+.main-navigation ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.main-navigation a {
+    display: block;
+    padding: 26px 20px;
+}
+.site-navigation {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    width: 620px;
+}
+.user-navigation {
+    background-color: var(--basic-grey);
+    display: grid;
+    display: -moz-grid;
+    display: -webkit-box;
+    max-height: 86px;
+}
+.user-navigation .login-link {
+    position: relative;
+}
+.navigation-check-document
+{
+    color: var(--select-color);
+}
+.navigation-uncheck-document
+{
+    color: var(--basic-black);
+}
+
+.login-link
+{
+    color: var(--basic-black);
+}
+.auth-link
+{
+    color: var(--basic-white);
+}
+
+.site-navigation a:hover,
+.site-navigation a:focus,
+.user-navigation a:hover,
+.user-navigation a:focus
+{
+    background-color: var(--select-color);
+    color: var(--backround-header);
+}
