@@ -8,22 +8,22 @@ const NavBar = () => {
                 <div className={classes.mainNavigationWrapper}>
                     <div className={classes.container}>
                         <ul className={classes.siteNavigation}>
-                            <li><Link to="/">Главная</Link></li>
+                            <li><Link className={classes.links} to="/">Главная</Link></li>
                             <li>
-                                <a>Разделы</a>
+                                <a className={classes.links}>Разделы</a>
                                 <ul className={classes.submenu}>
-                                    <li><Link to="/dailyPlanner">Ежедневник</Link></li>
-                                    <li><Link to="/timer">Оптимизация работы</Link></li>
-                                    <li><Link to="/kanbanDesks">Доска Канбан</Link></li>
-                                    <li><Link to="/diagrams">Диаграммы</Link></li>
-                                    <li><Link to="/toDoList">Списки дел</Link></li>
+                                    <li><Link className={classes.links} to="/dailyPlanner">Ежедневник</Link></li>
+                                    <li><Link className={classes.links} to="/timer">Оптимизация работы</Link></li>
+                                    <li><Link className={classes.links} to="/kanbanDesks">Доска Канбан</Link></li>
+                                    <li><Link className={classes.links} to="/diagrams">Диаграммы</Link></li>
+                                    <li><Link className={classes.links} to="/toDoList">Списки дел</Link></li>
                                 </ul>
                             </li>
                         </ul>
                         <ul className={classes.userNavigation}>
-                            <li><Link to="/login">Войти</Link></li>
-                            <li><Link to="/register">Регистрация</Link></li>
-                            <li><Link to="/logout">Выйти</Link></li>
+                            <li><Link className={classes.links} to="/login">Войти</Link></li>
+                            <li><Link className={classes.links} to="/register">Регистрация</Link></li>
+                            <li><Link className={classes.links} to="/logout">Выйти</Link></li>
                         </ul>
                     </div>
                 </div>

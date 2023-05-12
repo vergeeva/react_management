@@ -9,7 +9,33 @@
 
 .submenu
 {
-
+    font-size: 17px;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+    -webkit-transition: 0.5s ease-in-out;
+    -moz-transition: 0.5s ease-in-out;
+    -o-transition: 0.5s ease-in-out;
+    transition: 0.5s ease-in-out;
+    -webkit-transform: scaleY(0);
+    -ms-transform: scaleY(0);
+    transform: scaleY(0);
+    -webkit-transform-origin: 0 0;
+    -ms-transform-origin: 0 0;
+    transform-origin: 0 0;
+    box-shadow: 6px 4px 12px rgba(0, 0, 0, 0.19);
+}
+.submenu .links{
+    padding: 10px 5px;
+}
+.mainNavigation ul li:hover,
+.submenu
+{
+    -webkit-transform: scaleY(1);
+    -ms-transform: scaleY(1);
+    transform: scaleY(1);
 }
 
 .container {
@@ -18,11 +44,11 @@
     width: 1180px;
 }
 
-a
+.links
 {
     text-decoration: none;
 }
-.main-navigation
+.mainNavigation
 {
     font-family: 'Open Sans', serif;
     font-style: normal;
@@ -38,13 +64,13 @@ a
     -ms-flex-align: center;
     align-items: center;
 }
-.main-navigation-wrapper
+.mainNavigationWrapper
 {
     width: 100%;
     background-color: var(--basic-white);
     box-shadow: 6px 4px 12px rgba(0, 0, 0, 0.19);
 }
-.main-navigation-wrapper .container
+.mainNavigationWrapper .container
 {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -53,16 +79,16 @@ a
     -ms-flex-pack: justify;
     justify-content: space-between;
 }
-.main-navigation ul {
+.mainNavigation ul {
     margin: 0;
     padding: 0;
     list-style: none;
 }
-.main-navigation a {
+.mainNavigation a {
     display: block;
     padding: 26px 20px;
 }
-.site-navigation {
+.siteNavigation {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -70,38 +96,21 @@ a
     flex-wrap: wrap;
     width: 620px;
 }
-.user-navigation {
+.userNavigation {
     background-color: var(--basic-grey);
     display: grid;
     display: -moz-grid;
     display: -webkit-box;
     max-height: 86px;
 }
-.user-navigation .login-link {
+.userNavigation .loginLink {
     position: relative;
 }
-.navigation-check-document
-{
-    color: var(--select-color);
-}
-.navigation-uncheck-document
-{
-    color: var(--basic-black);
-}
 
-.login-link
-{
-    color: var(--basic-black);
-}
-.auth-link
-{
-    color: var(--basic-white);
-}
-
-.site-navigation a:hover,
-.site-navigation a:focus,
-.user-navigation a:hover,
-.user-navigation a:focus
+.siteNavigation a:hover,
+.siteNavigation a:focus,
+.userNavigation a:hover,
+.userNavigation a:focus
 {
     background-color: var(--select-color);
     color: var(--backround-header);

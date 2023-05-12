@@ -1,25 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useState} from 'react';
+import PomodoroTimer from "./components/pomodorro/timerObject";
+import {BrowserRouter} from "react-router-dom";
+import NavBar from "./components/UI/Navigation/NavBar";
+import AppRouter from "./components/AppRouter";
+import './styles/App.css'
+import MySelect from "./components/UI/Select/MySelect";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => {
+    const [isAuth, setIsAuth] = useState(false);
+    return (
+        <BrowserRouter>
+            <NavBar/>
+            <AppRouter/>
+            <MySelect value={'лала'} options={[{'value': 'лалалала', 'name': 'Тестовый'}]}/>
+        </BrowserRouter>
+    );
+};
 
 export default App;
