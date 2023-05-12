@@ -5,15 +5,21 @@ import NavBar from "./components/UI/Navigation/NavBar";
 import AppRouter from "./components/AppRouter";
 import './styles/App.css'
 import MySelect from "./components/UI/Select/MySelect";
+import {AuthContext} from "./context/authContext";
 
 const App = () => {
-    const [isAuth, setIsAuth] = useState(false);
+    const [isAuth, setIsAuth] = useState(true);
     return (
-        <BrowserRouter>
-            <NavBar/>
-            <AppRouter/>
-            <MySelect value={'лала'} options={[{'value': 'лалалала', 'name': 'Тестовый'}]}/>
-        </BrowserRouter>
+        <AuthContext.Provider value={{
+            isAuth,
+            setIsAuth
+        }}>
+            <BrowserRouter>
+                <NavBar/>
+                <AppRouter/>
+            </BrowserRouter>
+        </AuthContext.Provider>
+
     );
 };
 

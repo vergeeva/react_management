@@ -7,6 +7,7 @@ import ToDoList from "../../pages/ToDoList";
 import Logout from "../../pages/Logout";
 import Login from "../../pages/Login";
 import Registration from "../../pages/Registration";
+import Profile from "../../pages/Profile";
 
 export const ForAuthRoutes = [
     {path: '/', element: <Main/>, exact: true},
@@ -15,6 +16,7 @@ export const ForAuthRoutes = [
     {path: '/kanbanDesks', element: <KanbanDesk/>, exact: true},
     {path: '/diagrams', element: <Diagrams/>, exact: true},
     {path: '/toDoList', element: <ToDoList/>, exact: true},
+    {path: '/profile', element: <Profile/>, exact: true},
     {path: '/logout', element: <Logout/>, exact: true}
 ]
 
