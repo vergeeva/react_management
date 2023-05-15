@@ -1,29 +1,27 @@
-import ReactDOM from "react-dom";
-import Board, { moveCard } from "@lourenci/react-kanban";
-import "@lourenci/react-kanban/dist/styles.css";
+import '../kanban/components/styles.scss';
 import React, {useState} from "react";
-import PomodoroTimer from "../../App";
+import Board from "./components/Board/Board";
 
 const board = {
     columns: [
         {
-            id: 1,
+            id: 456781,
             title: "Отложить",
             cards: [
                 {
                     id: 1,
-                    title: "Card title 1",
-                    description: "Card content"
+                    title: "Заголовок карточки",
+                    description: "Контент"
                 },
                 {
                     id: 2,
-                    title: "Card title 2",
-                    description: "Card content"
+                    title: "Купить гель-лак цвета хаки",
+                    description: "Экономически невыгодно пока"
                 },
                 {
                     id: 3,
-                    title: "Card title 3",
-                    description: "Card content"
+                    title: "Покрасить толстовку",
+                    description: "Для начала ее неплохо будет постирать"
                 }
             ]
         },
@@ -33,8 +31,8 @@ const board = {
             cards: [
                 {
                     id: 9,
-                    title: "Card title 9",
-                    description: "Card content"
+                    title: "Реализовать доски канбан",
+                    description: "подумать, как можно улучшить приложение"
                 }
             ]
         },
@@ -44,13 +42,13 @@ const board = {
             cards: [
                 {
                     id: 10,
-                    title: "Card title 10",
-                    description: "Card content"
+                    title: "Написать вторую главу диплома",
+                    description: "описать только что-то одно и кратко"
                 },
                 {
                     id: 11,
-                    title: "Card title 11",
-                    description: "Card content"
+                    title: "Посмотреть урок по авторизации",
+                    description: "Не использовать локальное хранилище"
                 }
             ]
         },
@@ -60,13 +58,13 @@ const board = {
             cards: [
                 {
                     id: 12,
-                    title: "Card title 12",
-                    description: "Card content"
+                    title: "Помыть посуду",
+                    description: "Не забыть составить высохшую"
                 },
                 {
                     id: 13,
-                    title: "Card title 13",
-                    description: "Card content"
+                    title: "Забрать очки на почте",
+                    description: "Три пары очков"
                 }
             ]
         }

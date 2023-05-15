@@ -70,8 +70,6 @@ export default class Agenda extends Component {
     constructor(props){
         super(props);
 
-
-
         this.state = {
             items:[],
             selected:[],
@@ -202,8 +200,8 @@ export default class Agenda extends Component {
                     minDate={new Date(now.getFullYear(), now.getMonth()-3)}
                     maxDate={new Date(now.getFullYear(), now.getMonth()+3)}
                     startDate={this.state.startDate}
-                    startAtTime={8}
-                    endAtTime={23}
+                    startAtTime={0}
+                    endAtTime={24}
                     cellHeight={this.state.cellHeight}
                     locale="ru"
                     items={this.state.items}

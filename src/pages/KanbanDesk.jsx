@@ -3,7 +3,7 @@ import KanbanBoard from "../components/kanban/kanban";
 
 const KanbanDesk = () => {
     return (
-        <div>
+        <div style={{display:'flex', justifyContent:'center'}}>
            <KanbanBoard/>
         </div>
     );

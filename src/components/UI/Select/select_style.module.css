@@ -1,8 +1,12 @@
 .uniqueSelect{
+    font-family: 'Open Sans', serif;
     padding: 5px 15px;
-    color: #000000;
-    font-size: 14px;
-    /*background: transparent;*/
-    border: 1px solid rgb(200, 121, 255);
+    margin-left: 0;
+    color: rgb(12, 12, 12);
+    font-size: 17px;
+    box-shadow: 0 3px 2px rgba(215, 183, 245, 0.44);
+    border: 1px solid rgba(200, 121, 255, 0.51);
+    border-radius: 5px;
+    min-height: 30px;
     cursor: pointer;
 }

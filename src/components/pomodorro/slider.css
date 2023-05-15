@@ -6,6 +6,7 @@
 .pomodoro-wrapper{
     background-color: #747c8f;
     color: #eee6e6;
+    height: 100vh;
 }
 .pomodoro-timer{
     padding-top: 50px;

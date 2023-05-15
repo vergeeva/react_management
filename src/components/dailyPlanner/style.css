@@ -38,39 +38,40 @@
     border: none;
     background: none;
     padding: 6px;
-    border-left: 1px solid #ccc
+    border-left: 1px solid #ccc;
+    cursor: pointer;
 }
 
 .button-control,.control-buttons {
     display: -ms-flexbox;
     display: flex;
     -ms-flex-pack: center;
-    justify-content: center
+    justify-content: center;
 }
 
 .control-buttons {
     -ms-flex-direction: row;
     flex-direction: row;
     width: 100%;
-    border-bottom: 1px solid #ccc
+    border-bottom: 1px solid #ccc;
 }
 
 .control-buttons button {
-    width: 17%
+    width: 17%;
 }
 
 .edit-item-icon {
     background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjxzdmcgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDQ4IDQ4IiB3aWR0aD0iNDgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTYgMzQuNXY3LjVoNy41bDIyLjEzLTIyLjEzLTcuNS03LjUtMjIuMTMgMjIuMTN6bTM1LjQxLTIwLjQxYy43OC0uNzguNzgtMi4wNSAwLTIuODNsLTQuNjctNC42N2MtLjc4LS43OC0yLjA1LS43OC0yLjgzIDBsLTMuNjYgMy42NiA3LjUgNy41IDMuNjYtMy42NnoiLz48cGF0aCBkPSJNMCAwaDQ4djQ4aC00OHoiIGZpbGw9Im5vbmUiLz48L3N2Zz4=) no-repeat;
     background-size: cover;
     width: 12px;
-    height: 12px
+    height: 12px;
 }
 
 .remove-item-icon {
     background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjxzdmcgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDQ4IDQ4IiB3aWR0aD0iNDgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTI0IDRjLTExLjA1IDAtMjAgOC45NS0yMCAyMHM4Ljk1IDIwIDIwIDIwIDIwLTguOTUgMjAtMjAtOC45NS0yMC0yMC0yMHptMTAgMjcuMTdsLTIuODMgMi44My03LjE3LTcuMTctNy4xNyA3LjE3LTIuODMtMi44MyA3LjE3LTcuMTctNy4xNy03LjE3IDIuODMtMi44MyA3LjE3IDcuMTcgNy4xNy03LjE3IDIuODMgMi44My03LjE3IDcuMTcgNy4xNyA3LjE3eiIvPjxwYXRoIGQ9Ik0wIDBoNDh2NDhoLTQ4eiIgZmlsbD0ibm9uZSIvPjwvc3ZnPg==) no-repeat;
     background-size: cover;
     width: 12px;
-    height: 12px
+    height: 12px;
 }
 
 .agenda-cell-item {
@@ -95,25 +96,25 @@
     -o-transition-timing-function: ease-in-out;
     transition-timing-function: ease-in-out;
     backface-visibility: hidden;
-    -webkit-backface-visibility: hidden
+    -webkit-backface-visibility: hidden;
 }
 
 .agenda-item-description {
     padding: 8px;
-    font-size: 12px
+    font-size: 12px;
 }
 
 .agenda-item-description section {
-    font-size: 12px
+    font-size: 12px;
 }
 
 .agenda-item-description small {
     color: red;
-    font-size: 12px
+    font-size: 12px;
 }
 
 .agenda-controls-item {
-    border-bottom: 1px solid #eee
+    border-bottom: 1px solid #eee;
 }
 
 .agenda-controls-item,.agenda-edit-event {
@@ -124,13 +125,13 @@
     -ms-flex-align: center;
     align-items: center;
     -ms-flex-pack: center;
-    justify-content: center
+    justify-content: center;
 }
 
 .agenda-edit-event {
     padding: 4px;
     width: 50%;
-    border-right: 1px solid #eee
+    border-right: 1px solid #eee;
 }
 
 .agenda-edit-modele {
@@ -139,28 +140,28 @@
     width: 100%;
     height: 100%;
     -ms-flex-pack: center;
-    justify-content: center
+    justify-content: center;
 }
 
 .agenda-delete-event {
     -ms-flex-direction: row;
     flex-direction: row;
     padding: 4px;
-    width: 50%
+    width: 50%;
 }
 
 .agenda-delete-event,.agenda-delete-modele {
     -ms-flex-pack: center;
     justify-content: center;
     -ms-flex-align: center;
-    align-items: center
+    align-items: center;
 }
 
 .agenda-delete-modele {
     display: -ms-flexbox;
     display: flex;
     width: 100%;
-    height: 100%
+    height: 100%;
 }
 
 .agendCtrls-wrapper {
@@ -170,7 +171,7 @@
     -ms-flex-direction: column;
     flex-direction: column;
     -ms-flex-align: center;
-    align-items: center
+    align-items: center;
 }
 
 .agendCtrls-event-input {
@@ -179,22 +180,22 @@
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     outline: 0;
-    z-index: 3
+    z-index: 3;
 }
 
 .agendCtrls-remove-button {
-    margin-left: 8px
+    margin-left: 8px;
 }
 
 .agendCtrls-timePicker-wrapper {
     -ms-flex-direction: row;
     flex-direction: row;
-    padding-top: 8px
+    padding-top: 8px;
 }
 
 .agendCtrls-label-wrapper,.agendCtrls-radio-buttons,.agendCtrls-timePicker-wrapper {
     display: -ms-flexbox;
-    display: flex
+    display: flex;
 }
 
 .agendCtrls-radio-buttons {
@@ -207,7 +208,7 @@
     border-radius: 50%;
     -ms-flex-align: center;
     align-items: center;
-    margin-left: 8px
+    margin-left: 8px;
 }
 
 .agendCtrls-radio-button,.agendCtrls-radio-button--checked {
@@ -215,12 +216,12 @@
     height: 100%;
     background: none;
     border: none;
-    border-radius: 50%
+    border-radius: 50%;
 }
 
 .agendCtrls-radio-button--checked {
     -webkit-box-shadow: inset 0 0 10px rgba(0,0,0,.5);
-    box-shadow: inset 0 0 10px rgba(0,0,0,.5)
+    box-shadow: inset 0 0 10px rgba(0,0,0,.5);
 }
 
 .agendCtrls-radio-wrapper {
@@ -229,7 +230,7 @@
     -ms-flex-direction: row;
     flex-direction: row;
     -ms-flex-wrap: wrap;
-    flex-wrap: wrap
+    flex-wrap: wrap;
 }
 
 .agendCtrls-time-picker {
@@ -240,13 +241,13 @@
     -ms-flex-pack: center;
     justify-content: center;
     -ms-flex-align: center;
-    align-items: center
+    align-items: center;
 }
 
 .agendCtrls-time-picker label {
     font-size: 15px;
     font-weight: 600;
-    padding: 8px
+    padding: 8px;
 }
 
 .agendCtrls-label-inline {
@@ -254,7 +255,7 @@
     display: flex;
     -ms-flex-direction: column;
     flex-direction: column;
-    width: 50%
+    width: 50%;
 }
 
 .agendCtrls-label-inline label {

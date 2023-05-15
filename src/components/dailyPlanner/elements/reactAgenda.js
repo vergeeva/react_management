@@ -80,7 +80,7 @@ export default class ReactAgenda extends Component {
             window.removeEventListener("resize", this.updateDimensions);
 
         }
-        if(this.props.locale && this.props.locale != "en" ){
+        if(this.props.locale && this.props.locale !== "en" ){
             moment.locale(this.props.locale);
         }
 
@@ -359,7 +359,7 @@ export default class ReactAgenda extends Component {
         helper = null
 
 
-        if (startSelect && endSelect && startSelect != endSelect) {
+        if (startSelect && endSelect && startSelect !== endSelect) {
 
             return this.getSelection(startSelect , endSelect)
         }
@@ -588,22 +588,6 @@ export default class ReactAgenda extends Component {
     /************************/
 
     getSelection(start , end) {
-
-        // var array = [];
-        // var array2 = [];
-        // var old = document.getElementsByClassName('agenda__cell_selected')
-
-        // array = Object.keys(old).map(function(value, index) {
-        //   return old[value].id;
-        // })
-        // var last = moment(getLast(array));
-        // var addon = last.add((60 / this.props.rowsPerHour), 'Minutes')
-        // array.push(addon.format('YYYY-MM-DDTHH:mm:00'))
-
-        // if (this.props.onRangeSelection) {
-        //   console.log('array' , array)
-        //   this.props.onRangeSelection(array);
-        // }
         var strt =  moment(start)
         var endd =   moment(end)
         var arr = endd.diff(strt) >0?[start,end]:[end,start];
