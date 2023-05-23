@@ -74,8 +74,8 @@ function UncontrolledBoard() {
     return (
         <Board
             allowRemoveLane
-            allowRenameColumn
             allowRemoveCard
+            allowChangeCard
             onLaneRemove={console.log}
             onCardRemove={console.log}
             onLaneRename={console.log}

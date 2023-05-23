@@ -1,9 +1,10 @@
 import React from 'react';
+import TodoList from "../components/toDoList/todoList";
 
 const ToDoList = () => {
     return (
-        <div>
-            Список дел
+        <div style={{background:"white"}}>
+            <TodoList/>
         </div>
     );
 };

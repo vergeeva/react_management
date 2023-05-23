@@ -59,6 +59,12 @@ function UncontrolledBoard({
         setBoard(reorderedBoard)
     }
 
+    function handleColumnRename(column, title) {
+        const boardWithRenamedColumn = changeColumn(board, column, { title })
+        onColumnRename(boardWithRenamedColumn, { ...column, title })
+        setBoard(boardWithRenamedColumn)
+    }
+
     async function handleColumnAdd(newColumn) {
         const column = renderColumnAdder ? newColumn : await onNewColumnConfirm(newColumn)
         const boardWithNewColumn = addColumn(board, column)
@@ -70,12 +76,6 @@ function UncontrolledBoard({
         const filteredBoard = removeColumn(board, column)
         onColumnRemove(filteredBoard, column)
         setBoard(filteredBoard)
-    }
-
-    function handleColumnRename(column, title) {
-        const boardWithRenamedColumn = changeColumn(board, column, { title })
-        onColumnRename(boardWithRenamedColumn, { ...column, title })
-        setBoard(boardWithRenamedColumn)
     }
 
     function handleCardAdd(column, card, options = {}) {

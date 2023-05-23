@@ -218,7 +218,7 @@ export default class ReactAgendaCtrl extends Component {
                         <div className="agendCtrls-label-wrapper">
                             <div className="agendCtrls-label-inline">
                                 <label>Название события</label>
-                                <input type="text" name="name" autoFocus ref="eventName" className="agendCtrls-event-input" value={this.state.name} onChange={this.handleChange.bind(this)} placeholder="Event Name"/>
+                                <input type="text" name="name" autoFocus ref="eventName" className="agendCtrls-event-input" value={this.state.name} onChange={this.handleChange.bind(this)} placeholder="Название события"/>
                             </div>
                             <div className="agendCtrls-label-inline ">
                                 <label>Цвет</label>
@@ -250,7 +250,7 @@ export default class ReactAgendaCtrl extends Component {
                     <div className="agendCtrls-label-wrapper">
                         <div className="agendCtrls-label-inline">
                             <label>Название события</label>
-                            <input type="text" ref="eventName" autoFocus name="name" className="agendCtrls-event-input" value={this.state.name} onChange={this.handleChange.bind(this)} placeholder="Event Name"/>
+                            <input type="text" ref="eventName" autoFocus name="name" className="agendCtrls-event-input" value={this.state.name} onChange={this.handleChange.bind(this)} placeholder="Название события"/>
                         </div>
                         <div className="agendCtrls-label-inline">
                             <label>Цвет</label>

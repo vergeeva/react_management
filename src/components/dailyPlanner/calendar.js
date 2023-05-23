@@ -14,29 +14,30 @@ require('moment/locale/ru.js');
 var colors= {
     'color-1':"rgb(212,157,246)" ,
     "color-2":"rgb(234,243,110)" ,
-    "color-3":"rgba(253,106,81,0.88)" ,
+    "color-3":"rgba(245,140,124,0.88)" ,
     "color-4":"rgb(125,201,248)",
-    "color-5":"rgb(246,135,200)"
+    "color-5":"rgb(246,135,200)",
+    "color-6":"rgb(189,246,135)"
 }
 
 
 var items = [
     {
-        _id            :guid(),
+        _id            :"1244",
         name          : 'Задача 1',
         startDateTime : new Date(now.getFullYear(), now.getMonth(), now.getDate(), 10, 0),
         endDateTime   : new Date(now.getFullYear(), now.getMonth(), now.getDate(), 12, 0),
-        classes       : 'color-1 color-4'
+        classes       : 'color-1'
     },
     {
-        _id            :guid(),
+        _id            :"01321",
         name          : 'Задача 2',
         startDateTime : new Date(now.getFullYear(), now.getMonth(), now.getDate()+1, 11, 0),
         endDateTime   : new Date(now.getFullYear(), now.getMonth(), now.getDate()+1, 13, 0),
         classes       : 'color-2'
     },
     {
-        _id            :guid(),
+        _id            :"3241",
         name          : 'Задача 3',
         startDateTime : new Date(now.getFullYear(), now.getMonth(), now.getDate()+1, 11 , 0),
         endDateTime   : new Date(now.getFullYear(), now.getMonth(), now.getDate()+1, 14 ,30),
@@ -94,7 +95,7 @@ export default class Agenda extends Component {
 
     }
 
-    componentDidMount(){
+    componentDidMount(){ // присваиваем состоянию массив элементов
 
         this.setState({items:items})
     }
@@ -104,14 +105,14 @@ export default class Agenda extends Component {
             this.setState({items:next.items})
         }
     }
-    handleItemEdit(item, openModal) {
+    handleItemEdit(item, openModal) { // для редактирования элемента
 
         if(item && openModal === true){
             this.setState({selected:[item] })
             return this._openModal();
         }
     }
-    handleCellSelection(item, openModal) {
+    handleCellSelection(item, openModal) { // Выделение ячейки
 
         if(this.state.selected && this.state.selected[0] === item){
             return  this._openModal();
@@ -119,11 +120,11 @@ export default class Agenda extends Component {
         this.setState({selected:[item] })
 
     }
-    zoomIn(){
+    zoomIn(){ // Увеличить масштаб
         var num = this.state.cellHeight + 15
         this.setState({cellHeight:num})
     }
-    zoomOut(){
+    zoomOut(){ // Уменьшить масштаб
         var num = this.state.cellHeight - 15
         this.setState({cellHeight:num})
     }
@@ -131,49 +132,47 @@ export default class Agenda extends Component {
         this.setState({startDate:startDate })
 
     }
-    handleRangeSelection (selected) {
-
-
+    handleRangeSelection (selected) { // Выделение диапазона
         this.setState({selected:selected , showCtrl:true})
         this._openModal();
 
     }
-    _openModal(){
+    _openModal(){ // Открытие модального окна
         this.setState({showModal:true})
     }
-    _closeModal(e){
-        if(e){
+    _closeModal(e){ // Для закрытия окна
+        if(e){ // Убираем обновление страницы
             e.stopPropagation();
             e.preventDefault();
         }
         this.setState({showModal:false})
     }
 
-    handleItemChange(items , item){
+    handleItemChange(items , item){ // Меняем элемент
 
         this.setState({items:items})
     }
 
-    handleItemSize(items , item){
+    handleItemSize(items , item){ // Если меняется размер элемента, длительность
 
         this.setState({items:items})
 
     }
-    removeEvent(items , item){
+    removeEvent(items , item){ // Удаление элемента
 
         this.setState({ items:items});
     }
-    addNewEvent (items , newItems){
+    addNewEvent (items , newItems){ // добавить новый
 
         this.setState({showModal:false ,selected:[] , items:items});
         this._closeModal();
     }
-    editEvent (items , item){
+    editEvent (items , item){ // Редактировать событие
 
         this.setState({showModal:false ,selected:[] , items:items});
         this._closeModal();
     }
-    changeView (days , event ){
+    changeView (days , event ){ // Изменить количество дней для отображения
         this.setState({numberOfDays:days})
     }
     render() {
@@ -210,7 +209,6 @@ export default class Agenda extends Component {
                     rowsPerHour={this.state.rowsPerHour}
                     itemColors={colors}
                     helper={true}
-                    //itemComponent={AgendaItem}
                     view="calendar"
                     autoScale={false}
                     fixedHeader={true}

@@ -2,6 +2,8 @@ import React, {useContext, useState} from 'react';
 import {Link} from "react-router-dom";
 import classes from './Navigation.module.css';
 import {AuthContext} from "../../../context/authContext";
+import {logoutUser} from "../../auth/functions/auth";
+import {checkIsAuth} from "../../auth/functions/validation";
 
 const NavBar = () => {
     const [isHover, setIsHover] = useState(false);
@@ -22,7 +24,7 @@ const NavBar = () => {
                                 <a className={classes.links} >
                                     Разделы</a>
                                 {
-                                    isHover
+                                    isHover && isAuth
                                     ?
                                         (
                                             <ul className={classes.submenu}>
@@ -30,7 +32,7 @@ const NavBar = () => {
                                                 <li><Link className={classes.submenuLink} to="/timer">Оптимизация работы</Link></li>
                                                 <li><Link className={classes.submenuLink} to="/kanbanDesks">Доска Канбан</Link></li>
                                                 <li><Link className={classes.submenuLink} to="/diagrams">Диаграммы</Link></li>
-                                                <li><Link className={classes.submenuLink} to="/toDoList">Списки дел</Link></li>
+                                                <li><Link className={classes.submenuLink} to="/toDoList">Список задач</Link></li>
                                             </ul>
                                         ):null
                                 }
@@ -43,7 +45,13 @@ const NavBar = () => {
                                 ?
                                     <div className={classes.userNavigation}>
                                         <li><Link className={classes.links} to="/profile">Профиль</Link></li>
-                                        <li><Link className={classes.links} to="/logout">Выйти</Link></li>
+                                        <li><Link className={classes.links} to="/"
+                                        onClick={async () =>{
+                                            await logoutUser();
+                                            await setIsAuth(checkIsAuth());
+                                        }
+                                        }
+                                        >Выйти</Link></li>
                                     </div>
                                 :
                                     <div className={classes.userNavigation}>

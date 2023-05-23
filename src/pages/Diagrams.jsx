@@ -22,7 +22,7 @@ const Diagrams = () => {
         }
     }
     return (
-        <div style={{background:"white"}}>
+        <div style={{backgroundColor:"white"}}>
             <div>
                 <label style={{fontFamily: "Open Sans, serif", fontSize:'17px', margin: '16px'}}>Выберите диаграмму:</label>
                 <MySelect
