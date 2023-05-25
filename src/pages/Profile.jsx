@@ -49,8 +49,8 @@ const Profile = () => {
                 </div>
                 <div>
                     <MyButton
-                        onClick={()=>{
-                            console.log("Тут вставить форму для изменения пароля")
+                        onClick={async ()=>{
+                            await router("/changePassword");
                         }}
                     >Изменить пароль</MyButton>
                 </div>

@@ -4,7 +4,6 @@ import moment from 'moment'
 import ReactAgendaItem from './reactAgendaItem';
 import classNames from 'classnames';
 import {guid, getUnique, getLast, getFirst , mapItems} from './helpers.js';
-import * as DragDropHelper from './dragAndDropHelper.js';
 
 var startSelect
 
@@ -125,7 +124,7 @@ export default class ReactAgenda extends Component {
 
         if(this.props.startAtTime && typeof this.props.startAtTime === "number" ){
             for (var i = 0; i < 24 * this.props.rowsPerHour; i++) {
-                if(this.props.endAtTime != 0 && (this.props.endAtTime - this.props.startAtTime) * this.props.rowsPerHour  >=  i ){
+                if(this.props.endAtTime !== 0 && (this.props.endAtTime - this.props.startAtTime) * this.props.rowsPerHour  >=  i ){
                     rows.push(moment(this.state.date).hours(this.props.startAtTime).minutes(0).seconds(0).milliseconds(0).add(Math.floor(i * interval), 'minutes'));
                 }
 
@@ -789,7 +788,7 @@ export default class ReactAgenda extends Component {
                 }
             }
 
-            if (splt.length == 1) {
+            if (splt.length === 1) {
                 styles = {
                     "background": nwsplt[0],
                     height: this.props.cellHeight + 'px'

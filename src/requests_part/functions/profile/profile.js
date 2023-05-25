@@ -5,6 +5,7 @@ export async function getUserProfile(){
     try
     {
         const response = await ProfileService.get_user_data();
+        console.log(response);
         return response.data;
     }
     catch (e)
@@ -23,6 +24,7 @@ export async function updateUserProfile(user){
     try
     {
         const response = await ProfileService.update_user_profile(user);
+        console.log(response);
     }
     catch (e)
     {

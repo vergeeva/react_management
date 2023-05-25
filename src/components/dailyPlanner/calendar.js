@@ -1,12 +1,11 @@
 // @flow
 import React, { Component } from 'react';
 import moment from 'moment';
-// import { ReactAgenda , ReactAgendaCtrl, guid , getUnique , getLast , getFirst , Modal } from './elements/index';
 import ReactAgenda from './elements/reactAgenda.js';
 import ReactAgendaCtrl from './elements/reactAgendaCtrl.js';
 import Modal from './elements/Modal/Modal.js';
-import {guid , getUnique , getLast , getFirst } from './elements/helpers.js';
 import './style.css';
+import {getDailyPlanner} from "../../requests_part/functions/dailyPlanner/dailyPlanner";
 
 var now = new Date();
 
@@ -95,8 +94,18 @@ export default class Agenda extends Component {
 
     }
 
-    componentDidMount(){ // присваиваем состоянию массив элементов
-
+    componentDidMount (){ // присваиваем состоянию массив элементов
+        getDailyPlanner().then(r => {
+            for (let i=0;i<r.entries.length; i++)
+            {
+                items[i]._id=r.entries[i].idEntry;
+                items[i].name=r.entries[i].dailyTaskName;
+                items[i].classes=r.entries[i].taskColor;
+                items[i].startDateTime=r.entries[i].taskStart;
+                items[i].endDateTime=r.entries[i].taskEnd;
+            }
+        })
+        console.log(items);
         this.setState({items:items})
     }
     componentWillReceiveProps(next , last){
@@ -129,6 +138,7 @@ export default class Agenda extends Component {
         this.setState({cellHeight:num})
     }
     handleDateRangeChange (startDate, endDate) {
+        console.log("Начальную дату изменили?");
         this.setState({startDate:startDate })
 
     }
@@ -149,27 +159,34 @@ export default class Agenda extends Component {
     }
 
     handleItemChange(items , item){ // Меняем элемент
-
+        console.log("Отредактировали хэндл?");
+        console.log(item);
         this.setState({items:items})
     }
 
     handleItemSize(items , item){ // Если меняется размер элемента, длительность
-
+        console.log("Изменили длительность?");
+        console.log(item);
         this.setState({items:items})
 
     }
     removeEvent(items , item){ // Удаление элемента
-
+        console.log("Удалили?");
+        console.log(item);
         this.setState({ items:items});
     }
     addNewEvent (items , newItems){ // добавить новый
 
         this.setState({showModal:false ,selected:[] , items:items});
+        console.log("Добавили новый?");
+        console.log(newItems);
         this._closeModal();
     }
     editEvent (items , item){ // Редактировать событие
 
         this.setState({showModal:false ,selected:[] , items:items});
+        console.log("Отредактировали?");
+        console.log(item);
         this._closeModal();
     }
     changeView (days , event ){ // Изменить количество дней для отображения

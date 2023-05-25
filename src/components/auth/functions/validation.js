@@ -17,6 +17,11 @@ export async function checkPasswords(password, passwordConfirm){
     return password === passwordConfirm;
 }
 
+export async function checkLengthPassword(password)
+{
+    return password.length > 7;
+}
+
 export async function checkIsAuth(){
     try{
         if (document.cookie.split("; ")[1].split("=")[1] === 'True') {

@@ -1,85 +1,48 @@
 import '../kanban/components/styles.scss';
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Board from "./components/Board/Board";
+import {getAllColumns} from "../../requests_part/functions/kanban/kanban";
+import {checkIsAuth} from "../auth/functions/validation";
+import {refresh} from "../auth/functions/auth";
+import MyButton from "../UI/Button/MyButton";
+import {getAllTasks} from "../../requests_part/functions/toDoList/toDoList";
 
-const board = {
+let board = {
     columns: [
         {
-            id: 456781,
+            id: 1,
             title: "Отложить",
-            cards: [
-                {
-                    id: 1,
-                    title: "Заголовок карточки",
-                    description: "Контент"
-                },
-                {
-                    id: 2,
-                    title: "Купить гель-лак цвета хаки",
-                    description: "Экономически невыгодно пока"
-                },
-                {
-                    id: 3,
-                    title: "Покрасить толстовку",
-                    description: "Для начала ее неплохо будет постирать"
-                }
-            ]
+            cards: []
         },
         {
             id: 2,
             title: "В процессе",
-            cards: [
-                {
-                    id: 9,
-                    title: "Реализовать доски канбан",
-                    description: "подумать, как можно улучшить приложение"
-                }
-            ]
+            cards: []
         },
         {
             id: 3,
             title: "Буду делать",
-            cards: [
-                {
-                    id: 10,
-                    title: "Написать вторую главу диплома",
-                    description: "описать только что-то одно и кратко"
-                },
-                {
-                    id: 11,
-                    title: "Посмотреть урок по авторизации",
-                    description: "Не использовать локальное хранилище"
-                }
-            ]
+            cards: []
         },
         {
             id: 4,
             title: "Сделано",
-            cards: [
-                {
-                    id: 12,
-                    title: "Помыть посуду",
-                    description: "Не забыть составить высохшую"
-                },
-                {
-                    id: 13,
-                    title: "Забрать очки на почте",
-                    description: "Три пары очков"
-                }
-            ]
+            cards: []
         }
     ]
 };
-function UncontrolledBoard() {
+function UncontrolledBoard(props) {
     return (
         <Board
             allowRemoveLane
             allowRemoveCard
             allowChangeCard
+            allowRenameColumn
+            onColumnRename={console.log}
             onLaneRemove={console.log}
             onCardRemove={console.log}
             onLaneRename={console.log}
-            initialBoard={board}
+            initialBoard={props.board}
             allowAddCard={{ on: "top" }}
             onNewCardConfirm={draftCard => ({
                 id: new Date().getTime(),
@@ -91,9 +54,34 @@ function UncontrolledBoard() {
 }
 
 function KanbanBoard() {
+    const [columns, setColumns] = useState([{}]);
+    useEffect( () => {
+        (async () => {
+            const columns = await getAllColumns();
+
+            await setColumns(columns);
+            for (let i = 0; i < 4; i++) {
+                board.columns[i].id = columns.columns[i].id;
+                board.columns[i].title = columns.columns[i].title;
+                board.columns[i].cards = columns.columns[i].cards;
+                await console.log(board.columns[i]);
+                await console.log("ПОЧЕМУ НЕ РАБОТАЕТ");
+            }
+            await console.log(board);
+        })();
+    },[]);
+
     return (
         <div className="kanbans">
-            <UncontrolledBoard />
+            <UncontrolledBoard board={board}/>
+            <MyButton
+            onClick={async ()=>{
+                await console.log(board);
+                await console.log(columns);
+                board=columns;
+                await console.log(board);
+            }}
+            > тык </MyButton>
         </div>
     );
 }

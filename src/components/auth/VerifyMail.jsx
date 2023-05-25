@@ -3,6 +3,7 @@ import MyButton from "../UI/Button/MyButton";
 import {useLocation, useNavigate} from "react-router-dom";
 import {AuthContext} from "../../context/authContext";
 import {VerifyCodeAuthAccount, verifyMailNewAccount} from "./functions/mail";
+import InputText from "../UI/Input/InputText";
 
 const VerifyMail = () => {
     const [verCode, setVerCode] = useState('');
@@ -13,20 +14,26 @@ const VerifyMail = () => {
     return (
         <div>
             <p onClick={()=> {console.log(location.state.email)}}>Введите код подтверждения, отправленный на почту {location.state.email}</p>
-            <input type="text"
+            <InputText
+                name={"Код подтверждения:"}
+                type="text"
                 value={verCode}
                 onChange={event => setVerCode(event.target.value)}
             />
             <MyButton
             onClick={async () => {
-                if (isAuth)
+                if (verCode !== "")
                 {
-                    setStatus(await VerifyCodeAuthAccount(verCode));
+                    if (isAuth)
+                    {
+                        setStatus(await VerifyCodeAuthAccount(verCode));
+                    }
+                    else
+                    {
+                        setStatus(await verifyMailNewAccount(location.state.email, verCode));
+                    }
                 }
-                else
-                {
-                    setStatus(await verifyMailNewAccount(location.state.email, verCode));
-                }
+                else alert("Заполните поле ввода кода подтверждения!")
             }}>
             Подтвердить почту
             </MyButton>

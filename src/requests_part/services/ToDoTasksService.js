@@ -24,3 +24,4 @@ export default class ToDoTasksService {
         return $api.delete(`/api/tasksList/${taskId}`);
     }
 }
+

@@ -19,7 +19,7 @@ const ToDoForm = (props) => {
         }
     }
     return (
-        <form onSubmit={handleSubmit} style={{paddingTop:'50px', marginBottom:"15px"}}>
+        <form onSubmit={handleSubmit} style={{marginBottom:"15px"}}>
             <input
                 className={classes.inputForm}
                 value={userInput}

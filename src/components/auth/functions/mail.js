@@ -6,7 +6,6 @@ export async function verifyMailNewAccount(email, code){
         const response = await MailService.verifyMail(email,code);
         console.log(response);
         return response.data.message;
-
     }
     catch (e)
     {

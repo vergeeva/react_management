@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import MyButton from '../UI/Button/MyButton'
 import {registerUser} from "./functions/auth";
 import {useNavigate} from "react-router-dom";
-import {checkFieldsEmpty, checkMail, checkPasswords} from "./functions/validation";
+import {checkFieldsEmpty, checkLengthPassword, checkMail, checkPasswords} from "./functions/validation";
 
 
 const RegisterForm = () => {
@@ -76,13 +76,17 @@ const RegisterForm = () => {
                     {
                             setStatusValue('Пароли не совпадают!')
                     }
-                    else
+                    else if(await checkLengthPassword(user.password))
                     {
                             setStatusValue(await registerUser(user));
                             if (statusValue === "")
                             {
                                     await router('/verifyMail', {state: {email: user.email}});
                             }
+                    }
+                    else
+                    {
+                            setStatusValue('Длина пароля минимум 8 символов')
                     }
             }}
             >Регистрация</MyButton>

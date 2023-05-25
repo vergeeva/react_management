@@ -17,6 +17,10 @@ export default class ProfileService {
 
     static async update_user_password(password, passwordConfirm){
         return $api.put('/api/users/update_user_password',
-            {password, passwordConfirm});
+            {password:password, passwordConfirm: passwordConfirm});
+    }
+
+    static async validate_old_password(oldPassword){
+        return $api.get(`/api/users/check_password/${oldPassword}`);
     }
 }

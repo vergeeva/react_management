@@ -15,15 +15,16 @@ export function swapArrayElements(items, indexFrom, indexTo) {
 }
 
 /**
- * @param {number} mousePos
- * @param {number} elementPos
- * @param {number} elementSize
- * @returns {boolean}
+ * @returns {Date}
 
 
+ * @param date
  */
 
-
+export function createFormattedDateFromDate(timestamp) {
+    var date =new Date(timestamp);
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes());
+}
 
 
 export function isMouseBeyond(mousePos, elementPos, elementSize, moveInMiddle) {

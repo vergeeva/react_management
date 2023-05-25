@@ -5,7 +5,7 @@
 .react-kanban-card {
   @extend .react-kanban-card-skeleton;
   border-radius: 3px;
-  background-color: #fff;
+  background-color: rgb(248, 255, 248);
   padding: 10px;
   margin-bottom: 7px;
 }
@@ -35,7 +35,8 @@
 .react-kanban-column {
   padding: 15px;
   border-radius: 2px;
-  background-color: #eee;
+  box-shadow: 0 0 10px #c9bcc9;
+  background-color: rgba(171, 159, 182, 0.44);
   margin: 5px;
   input {
     &:focus {
@@ -69,7 +70,7 @@
   margin-bottom: 10px;
   font-weight: bold;
   &:hover {
-    background-color: #ccc;
+    background-color: #dedbdb;
   }
 }
 
