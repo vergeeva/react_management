@@ -5,73 +5,56 @@ import ReactAgenda from './elements/reactAgenda.js';
 import ReactAgendaCtrl from './elements/reactAgendaCtrl.js';
 import Modal from './elements/Modal/Modal.js';
 import './style.css';
-import {getDailyPlanner} from "../../requests_part/functions/dailyPlanner/dailyPlanner";
+import {
+    deleteEntry,
+    getDailyPlanner,
+    insertEntry,
+    updateEntry
+} from "../../requests_part/functions/dailyPlanner/dailyPlanner";
 
-var now = new Date();
+const now = new Date();
 
 require('moment/locale/ru.js');
-var colors= {
-    'color-1':"rgb(212,157,246)" ,
-    "color-2":"rgb(234,243,110)" ,
-    "color-3":"rgba(245,140,124,0.88)" ,
-    "color-4":"rgb(125,201,248)",
-    "color-5":"rgb(246,135,200)",
-    "color-6":"rgb(189,246,135)"
+const colors = {
+    'color-1': "rgb(212,157,246)",
+    "color-2": "rgb(234,243,110)",
+    "color-3": "rgba(245,140,124,0.88)",
+    "color-4": "rgb(125,201,248)",
+    "color-5": "rgb(246,135,200)",
+    "color-6": "rgb(189,246,135)"
+};
+
+function convertData(date){
+    const offset = Math.abs(new Date().getTimezoneOffset() / 60);
+    date.setHours(date.getHours() + offset);
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes());
+}
+export function getItems(){
+    const items = [];
+    getDailyPlanner().then(r => {
+        for (let i=0;i<r?.entries?.length; i++)
+        {
+            items.push({
+                _id: r.entries[i].idEntry,
+                name: r.entries[i].dailyTaskName,
+                classes: r.entries[i].taskColor,
+                startDateTime: convertData(new Date(r.entries[i].taskStart)),
+                endDateTime: convertData(new Date(r.entries[i].taskEnd))
+            })
+        }
+    })
+    return items;
 }
 
+const items = getItems();
 
-var items = [
-    {
-        _id            :"1244",
-        name          : 'Задача 1',
-        startDateTime : new Date(now.getFullYear(), now.getMonth(), now.getDate(), 10, 0),
-        endDateTime   : new Date(now.getFullYear(), now.getMonth(), now.getDate(), 12, 0),
-        classes       : 'color-1'
-    },
-    {
-        _id            :"01321",
-        name          : 'Задача 2',
-        startDateTime : new Date(now.getFullYear(), now.getMonth(), now.getDate()+1, 11, 0),
-        endDateTime   : new Date(now.getFullYear(), now.getMonth(), now.getDate()+1, 13, 0),
-        classes       : 'color-2'
-    },
-    {
-        _id            :"3241",
-        name          : 'Задача 3',
-        startDateTime : new Date(now.getFullYear(), now.getMonth(), now.getDate()+1, 11 , 0),
-        endDateTime   : new Date(now.getFullYear(), now.getMonth(), now.getDate()+1, 14 ,30),
-        classes       : 'color-4'
-    },
-    {
-        _id            :'event-4',
-        name          : 'Очень интересно',
-        startDateTime : new Date(now.getFullYear(), now.getMonth(), now.getDate()+2, 10, 0),
-        endDateTime   : new Date(now.getFullYear(), now.getMonth(), now.getDate()+2, 15, 0),
-        classes       : 'color-3'
-
-    },
-    {
-        _id           :'event-5',
-        name          : 'Что-то еще',
-        startDateTime : new Date(now.getFullYear(), now.getMonth(), now.getDate()+3, 10, 0),
-        endDateTime   : new Date(now.getFullYear(), now.getMonth(), now.getDate()+3, 16, 30),
-        classes       : 'color-4'
-    },
-    {
-        _id           :'event-6',
-        name          : 'Задачка',
-        startDateTime : new Date(now.getFullYear(), now.getMonth(), now.getDate()+7, 9, 14),
-        endDateTime   : new Date(now.getFullYear(), now.getMonth(), now.getDate()+7, 17),
-        classes       : 'color-3'
-    }
-];
 
 export default class Agenda extends Component {
     constructor(props){
         super(props);
 
         this.state = {
-            items:[],
+            items:props.items,
             selected:[],
             cellHeight:(60 / 4),
             showModal:false,
@@ -95,17 +78,6 @@ export default class Agenda extends Component {
     }
 
     componentDidMount (){ // присваиваем состоянию массив элементов
-        getDailyPlanner().then(r => {
-            for (let i=0;i<r.entries.length; i++)
-            {
-                items[i]._id=r.entries[i].idEntry;
-                items[i].name=r.entries[i].dailyTaskName;
-                items[i].classes=r.entries[i].taskColor;
-                items[i].startDateTime=r.entries[i].taskStart;
-                items[i].endDateTime=r.entries[i].taskEnd;
-            }
-        })
-        console.log(items);
         this.setState({items:items})
     }
     componentWillReceiveProps(next , last){
@@ -130,15 +102,15 @@ export default class Agenda extends Component {
 
     }
     zoomIn(){ // Увеличить масштаб
-        var num = this.state.cellHeight + 15
+        const num = this.state.cellHeight + 15;
         this.setState({cellHeight:num})
     }
     zoomOut(){ // Уменьшить масштаб
-        var num = this.state.cellHeight - 15
+        const num = this.state.cellHeight - 15;
         this.setState({cellHeight:num})
     }
     handleDateRangeChange (startDate, endDate) {
-        console.log("Начальную дату изменили?");
+        console.log("Смена даты для отображения");
         this.setState({startDate:startDate })
 
     }
@@ -159,34 +131,46 @@ export default class Agenda extends Component {
     }
 
     handleItemChange(items , item){ // Меняем элемент
-        console.log("Отредактировали хэндл?");
-        console.log(item);
+        console.log("Перетащили элемент, отправить запрос на сервер");
+        updateEntry(item).then(r => {
+            item._id = r?.idEntry;
+        });
+        console.log(item)
         this.setState({items:items})
     }
 
     handleItemSize(items , item){ // Если меняется размер элемента, длительность
-        console.log("Изменили длительность?");
-        console.log(item);
+        console.log("Изменили длительность задачи, нужно отправить на сервер");
+        updateEntry(item).then(r => r);
+        console.log(item)
         this.setState({items:items})
 
     }
     removeEvent(items , item){ // Удаление элемента
-        console.log("Удалили?");
+        console.log("Удалили, отправить запрос на сервер");
         console.log(item);
+        deleteEntry(item).then(r => r);
         this.setState({ items:items});
     }
-    addNewEvent (items , newItems){ // добавить новый
-
-        this.setState({showModal:false ,selected:[] , items:items});
-        console.log("Добавили новый?");
-        console.log(newItems);
+    async addNewEvent(items, newItems) { // добавить новый
+        for (let i = 0; i < items.length; i++) {
+            if (items[i]._id === newItems._id) {
+                const response = await insertEntry(newItems);
+                console.log(items[i]._id);
+                items[i]._id = response?.idEntry;
+                console.log(items[i]._id);
+            }
+        }
+        console.log()
+        this.setState({showModal: false, selected: [], items: items});
         this._closeModal();
     }
     editEvent (items , item){ // Редактировать событие
 
         this.setState({showModal:false ,selected:[] , items:items});
-        console.log("Отредактировали?");
+        console.log("Отредактировали в модальном окне, отправить на сервер");
         console.log(item);
+        updateEntry(item).then(r => r);
         this._closeModal();
     }
     changeView (days , event ){ // Изменить количество дней для отображения
@@ -194,10 +178,12 @@ export default class Agenda extends Component {
     }
     render() {
 
-        var AgendaItem = function(props){
-            console.log( ' item component props' , props)
-            return <div style={{display:'block', position:'absolute' , background:'#FFF'}}>{props.item.name} <button onClick={()=> props.edit(props.item)}>Изменить</button></div>
-        }
+        const AgendaItem = function (props) {
+            console.log(' item component props', props)
+            return <div style={{display: 'block', position: 'absolute', background: '#FFF'}}>{props.item.name}
+                <button onClick={() => props.edit(props.item)}>Изменить</button>
+            </div>
+        };
         return (
 
             <div className="content-expanded ">

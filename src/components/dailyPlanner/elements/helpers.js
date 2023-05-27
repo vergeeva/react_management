@@ -18,7 +18,7 @@ export function swapArrayElements(items, indexFrom, indexTo) {
  * @returns {Date}
 
 
- * @param date
+ * @param timestamp
  */
 
 export function createFormattedDateFromDate(timestamp) {

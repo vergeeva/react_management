@@ -15,13 +15,14 @@ import {
 } from './services'
 import { moveCard, moveColumn, addColumn, removeColumn, changeColumn, addCard, removeCard } from '../../services/helpers'
 import {partialRight, when} from "../../services/utils";
+import {deleteTask, insertTaskToCard, updateKanbanCard} from "../../../../requests_part/functions/kanban/kanban";
 
 const Columns = forwardRef((props, ref) => <div ref={ref} style={{ whiteSpace: 'wrap' }} {...props} />)
 
 const DroppableBoard = withDroppable(Columns)
 
 function Board(props) {
-    return props.initialBoard ? <UncontrolledBoard {...props} /> : <ControlledBoard {...props} />
+    return <UncontrolledBoard {...props} />
 }
 
 function UncontrolledBoard({
@@ -56,13 +57,19 @@ function UncontrolledBoard({
     function handleOnDragEnd({ source, destination, subject }, { moveCallback, notifyCallback }) {
         const reorderedBoard = moveCallback(board, source, destination)
         when(notifyCallback)((callback) => callback(reorderedBoard, subject, source, destination))
+        console.log("переместили карту?")
+        console.log(source);
+        console.log(destination);
         setBoard(reorderedBoard)
     }
 
-    function handleColumnRename(column, title) {
+    async function handleColumnRename(column, title) {
         const boardWithRenamedColumn = changeColumn(board, column, { title })
         onColumnRename(boardWithRenamedColumn, { ...column, title })
         setBoard(boardWithRenamedColumn)
+        console.log("Колонку переименовали?")
+        await updateKanbanCard(column, title)
+
     }
 
     async function handleColumnAdd(newColumn) {
@@ -78,7 +85,7 @@ function UncontrolledBoard({
         setBoard(filteredBoard)
     }
 
-    function handleCardAdd(column, card, options = {}) {
+    async function handleCardAdd(column, card, options = {}) {
         const boardWithNewCard = addCard(board, column, card, options)
 
         onCardNew(
@@ -86,21 +93,24 @@ function UncontrolledBoard({
             boardWithNewCard.columns.find(({ id }) => id === column.id),
             card
         )
+        await insertTaskToCard(column.id,card);
+        console.log(column.id,card);
         setBoard(boardWithNewCard)
     }
 
     async function handleDraftCardAdd(column, card, options = {}) {
         const newCard = await onNewCardConfirm(card)
-        handleCardAdd(column, newCard, options)
+        await handleCardAdd(column, newCard, options)
     }
 
-    function handleCardRemove(column, card) {
+    async function handleCardRemove(column, card) {
         const boardWithoutCard = removeCard(board, column, card)
         onCardRemove(
             boardWithoutCard,
             boardWithoutCard.columns.find(({ id }) => id === column.id),
             card
         )
+        await deleteTask(card.id);
         setBoard(boardWithoutCard)
     }
 
@@ -148,61 +158,62 @@ function UncontrolledBoard({
     )
 }
 
-function ControlledBoard({
-                             children: board,
-                             onCardDragEnd,
-                             onColumnDragEnd,
-                             allowAddColumn,
-                             renderColumnAdder,
-                             onNewColumnConfirm,
-                             onColumnRemove,
-                             renderColumnHeader,
-                             allowRemoveColumn,
-                             allowRenameColumn,
-                             onColumnRename,
-                             renderCard,
-                             allowRemoveCard,
-                             onCardRemove,
-                             disableCardDrag,
-                             disableColumnDrag,
-                         }) {
-    const handleOnCardDragEnd = partialRight(handleOnDragEnd, { notifyCallback: onCardDragEnd })
-    const handleOnColumnDragEnd = partialRight(handleOnDragEnd, { notifyCallback: onColumnDragEnd })
-
-    function handleOnDragEnd({ source, destination, subject }, { notifyCallback }) {
-        when(notifyCallback)((callback) => callback(subject, source, destination))
-    }
-
-    return (
-        <BoardContainer
-            onCardDragEnd={handleOnCardDragEnd}
-            onColumnDragEnd={handleOnColumnDragEnd}
-            renderColumnAdder={() => {
-                if (!allowAddColumn) return null
-                if (renderColumnAdder) return renderColumnAdder()
-                if (!onNewColumnConfirm) return null
-                return <ColumnAdder onConfirm={(title) => onNewColumnConfirm({ title, cards: [] })} />
-            }}
-            {...(renderColumnHeader && { renderColumnHeader: renderColumnHeader })}
-            renderCard={(_column, card, dragging) => {
-                if (renderCard) return renderCard(card, { dragging })
-                return (
-                    <DefaultCard dragging={dragging} allowRemoveCard={allowRemoveCard} onCardRemove={onCardRemove}>
-                        {card}
-                    </DefaultCard>
-                )
-            }}
-            allowRemoveColumn={allowRemoveColumn}
-            onColumnRemove={onColumnRemove}
-            allowRenameColumn={allowRenameColumn}
-            onColumnRename={onColumnRename}
-            disableColumnDrag={disableColumnDrag}
-            disableCardDrag={disableCardDrag}
-        >
-            {board}
-        </BoardContainer>
-    )
-}
+//
+// function ControlledBoard({
+//                              children: board,
+//                              onCardDragEnd,
+//                              onColumnDragEnd,
+//                              allowAddColumn,
+//                              renderColumnAdder,
+//                              onNewColumnConfirm,
+//                              onColumnRemove,
+//                              renderColumnHeader,
+//                              allowRemoveColumn,
+//                              allowRenameColumn,
+//                              onColumnRename,
+//                              renderCard,
+//                              allowRemoveCard,
+//                              onCardRemove,
+//                              disableCardDrag,
+//                              disableColumnDrag,
+//                          }) {
+//     const handleOnCardDragEnd = partialRight(handleOnDragEnd, { notifyCallback: onCardDragEnd })
+//     const handleOnColumnDragEnd = partialRight(handleOnDragEnd, { notifyCallback: onColumnDragEnd })
+//
+//     function handleOnDragEnd({ source, destination, subject }, { notifyCallback }) {
+//         when(notifyCallback)((callback) => callback(subject, source, destination))
+//     }
+//
+//     return (
+//         <BoardContainer
+//             onCardDragEnd={handleOnCardDragEnd}
+//             onColumnDragEnd={handleOnColumnDragEnd}
+//             renderColumnAdder={() => {
+//                 if (!allowAddColumn) return null
+//                 if (renderColumnAdder) return renderColumnAdder()
+//                 if (!onNewColumnConfirm) return null
+//                 return <ColumnAdder onConfirm={(title) => onNewColumnConfirm({ title, cards: [] })} />
+//             }}
+//             {...(renderColumnHeader && { renderColumnHeader: renderColumnHeader })}
+//             renderCard={(_column, card, dragging) => {
+//                 if (renderCard) return renderCard(card, { dragging })
+//                 return (
+//                     <DefaultCard dragging={dragging} allowRemoveCard={allowRemoveCard} onCardRemove={onCardRemove}>
+//                         {card}
+//                     </DefaultCard>
+//                 )
+//             }}
+//             allowRemoveColumn={allowRemoveColumn}
+//             onColumnRemove={onColumnRemove}
+//             allowRenameColumn={allowRenameColumn}
+//             onColumnRename={onColumnRename}
+//             disableColumnDrag={disableColumnDrag}
+//             disableCardDrag={disableCardDrag}
+//         >
+//             {board}
+//         </BoardContainer>
+//     )
+// }
 
 function BoardContainer({
                             children: board,
@@ -235,7 +246,7 @@ function BoardContainer({
         <DragDropContext onDragEnd={handleOnDragEnd}>
             <div style={{ overflowY: 'hidden', display: 'flex', alignItems: 'flex-start' }} className='react-kanban-board'>
                 <DroppableBoard droppableId='board-droppable' direction='horizontal' type='BOARD'>
-                    {board.columns.map((column, index) => (
+                    {board?.columns?.map((column, index) => (
                         <Column
                             key={column.id}
                             index={index}

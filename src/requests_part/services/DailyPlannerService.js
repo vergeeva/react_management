@@ -8,8 +8,8 @@ export default class DailyPlannerService {
     static async insert_entry(item){ //Получение всех записей пользователя
         return $api.post('/api/entryDailyPlanner/insert_entry',{
             dailyTaskName: item.name,
-            taskStart: item.startDateTime,
-            taskEnd: item.endDateTime,
+            taskStart: new Date(item.startDateTime),
+            taskEnd: new Date(item.endDateTime),
             taskColor: item.classes
         });
     }
@@ -17,8 +17,8 @@ export default class DailyPlannerService {
     static async update_entry(item) { //Получение всех записей пользователя
         return $api.put(`/api/entryDailyPlanner/${item._id}`, {
             dailyTaskName: item.name,
-            taskStart: item.startDateTime,
-            taskEnd: item.endDateTime,
+            taskStart: new Date(item.startDateTime),
+            taskEnd: new Date(item.endDateTime),
             taskColor: item.classes
         });
     }

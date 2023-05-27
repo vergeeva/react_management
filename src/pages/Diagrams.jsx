@@ -24,11 +24,11 @@ const Diagrams = () => {
     return (
         <div style={{backgroundColor:"white"}}>
             <div>
-                <label style={{fontFamily: "Open Sans, serif", fontSize:'17px', margin: '16px'}}>Выберите диаграмму:</label>
-                <MySelect
-                    options={options}
-                    onChange={selectedDiagram =>{setSelectedDiagram(selectedDiagram)}}>
-                </MySelect>
+                {/*<label style={{fontFamily: "Open Sans, serif", fontSize:'17px', margin: '16px'}}>Выберите диаграмму:</label>*/}
+                {/*<MySelect*/}
+                {/*    options={options}*/}
+                {/*    onChange={selectedDiagram =>{setSelectedDiagram(selectedDiagram)}}>*/}
+                {/*</MySelect>*/}
             </div>
             <div>
                 {

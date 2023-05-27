@@ -10,13 +10,14 @@ export async function getDailyPlanner(){
     }
     catch (e)
     {
-        console.log(e.response?.data?.detail);
         if (e.response?.status === 401)
         {
-            await refresh();
-            await getDailyPlanner();
+            if (!await refresh() === "Please provide refresh token")
+            {
+                await getDailyPlanner();
+                return e.response?.data?.detail;
+            }
         }
-        return e.response?.data?.detail;
     }
 }
 

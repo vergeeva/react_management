@@ -40,6 +40,7 @@ const LoginForm = () => {
                 Войти
             </MyButton>
             <label style={{color:'red'}}>{statusLoginValue}</label>
+            {/*<p><a href={"#"}>Забыли пароль?</a></p>*/}
         </div>
     );
 };

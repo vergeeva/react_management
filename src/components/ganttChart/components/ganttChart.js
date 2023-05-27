@@ -266,7 +266,10 @@ export function GanttChart(ganttChartElement, tasks, taskDurations) {
                 // taskDuration bar is a child of start date position of specific task
                 createTaskDurationEl(taskDuration, startCell);
             }
+            console.log("Добавили длительность");
+            console.log(taskDuration);
         });
+
     }
 
     function createTaskDurationEl(taskDuration, startCell) {
@@ -395,7 +398,7 @@ export function GanttChart(ganttChartElement, tasks, taskDurations) {
     function handleAddTaskForm(e) {
         e.preventDefault();
         const newTaskName = e.target.elements[0].value;
-        // find largest task number, add 1 for new task - else could end up with tasks with same id
+        // find the largest task number, add 1 for new task - else could end up with tasks with same id
         const maxIdVal = tasks.reduce(function (a, b) {
             return Math.max(a, b.id);
         }, -Infinity);
