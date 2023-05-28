@@ -1,12 +1,18 @@
-import { createHtmlContentFragment } from "./htmlContent.js";
+import {createHtmlContentFragment} from "./htmlContent.js";
 import {
-    monthDiff,
-    dayDiff,
-    getDaysInMonth,
-    getDayOfWeek,
-    createFormattedDateFromStr,
     createFormattedDateFromDate,
+    createFormattedDateFromStr,
+    dayDiff,
+    getDayOfWeek,
+    getDaysInMonth,
+    monthDiff,
 } from "./utils.js";
+import {
+    delete_task,
+    deleteDuration, insertDuration,
+    insertTask, updateDuration,
+    updateTask
+} from "../../../requests_part/functions/ganttChart/ganttChart";
 
 export function GanttChart(ganttChartElement, tasks, taskDurations) {
     const months = [
@@ -109,7 +115,7 @@ export function GanttChart(ganttChartElement, tasks, taskDurations) {
         // add task select values
         let taskOptionsHTMLStrArr = [];
 
-        tasks.forEach((task) => {
+        tasks?.forEach((task) => {
             const taskRowEl = document.createElement("div");
             taskRowEl.id = task.id;
             taskRowEl.className = "gantt-task-row";
@@ -214,7 +220,7 @@ export function GanttChart(ganttChartElement, tasks, taskDurations) {
 
         containerTimePeriods.appendChild(dayElContainer);
 
-        tasks.forEach((task) => {
+        tasks?.forEach((task) => {
             let month = new Date(startMonth);
             for (let i = 0; i < numMonths; i++) {
                 const timePeriodEl = document.createElement("div");
@@ -255,7 +261,7 @@ export function GanttChart(ganttChartElement, tasks, taskDurations) {
     }
 
     function addTaskDurations() {
-        taskDurations.forEach((taskDuration) => {
+        taskDurations?.forEach((taskDuration) => {
             const dateStr = createFormattedDateFromDate(taskDuration.start);
             // find gantt-time-period-cell start position
             const startCell = containerTimePeriods.querySelector(
@@ -266,8 +272,6 @@ export function GanttChart(ganttChartElement, tasks, taskDurations) {
                 // taskDuration bar is a child of start date position of specific task
                 createTaskDurationEl(taskDuration, startCell);
             }
-            console.log("Добавили длительность");
-            console.log(taskDuration);
         });
 
     }
@@ -278,9 +282,10 @@ export function GanttChart(ganttChartElement, tasks, taskDurations) {
         );
         const taskDurationEl = document.createElement("div");
         taskDurationEl.classList.add("taskDuration");
-        taskDurationEl.id = taskDuration.id;
+        console.log(taskDuration);
+        taskDurationEl.id = taskDuration?.id;
 
-        const days = dayDiff(taskDuration.start, taskDuration.end);
+        const days = dayDiff(taskDuration?.start, taskDuration?.end);
         taskDurationEl.style.width = `calc(${days} * 100%)`;
 
         // drag and drop
@@ -310,7 +315,6 @@ export function GanttChart(ganttChartElement, tasks, taskDurations) {
 
         // append at start pos
         startCell.appendChild(taskDurationEl);
-
         return days;
     }
 
@@ -321,10 +325,12 @@ export function GanttChart(ganttChartElement, tasks, taskDurations) {
         if (targetCell.hasAttribute("draggable")) return;
 
         // find task
-        const taskDuration = taskDurations.filter(
+        let taskDuration = taskDurations.filter(
             (taskDuration) => taskDuration.id === taskDurationElDragged.id
         )[0];
-
+        console.log("ПОИСк")
+        console.log(taskDuration);
+        console.log(taskDurations);
         const dataTask = targetCell.getAttribute("data-task");
         const dataDate = targetCell.getAttribute("data-date");
 
@@ -335,23 +341,35 @@ export function GanttChart(ganttChartElement, tasks, taskDurations) {
 
         // get new task values
         // get start, calc end using daysDuration - make Date objects - change taskDurations
-        const newTask = parseInt(dataTask);
+        const newTask = dataTask;
         const newStartDate = new Date(dataDate);
         let newEndDate = new Date(dataDate);
         newEndDate.setDate(newEndDate.getDate() + daysDuration - 1);
 
         // update taskDurations
+        console.log("перед 350ой строкой");
+        console.log(taskDuration);
+        // taskDuration = {task:newTask,start: newStartDate, end:newEndDate }
         taskDuration.task = newTask;
         taskDuration.start = newStartDate;
         taskDuration.end = newEndDate;
 
-        const newTaskDuration = taskDurations.filter(
+        let newTaskDuration = taskDurations.filter(
             (taskDuration) => taskDuration.id !== taskDurationElDragged.id
         );
-        newTaskDuration.push(taskDuration);
-
-        // update original / make API request to update data on backend
+        updateDuration(taskDuration).then(r => {
+            newTaskDuration.push(r);
+            console.log("response")
+            console.log(r);
+        })
+        console.log("але")
+        console.log(newTaskDuration);
         taskDurations = newTaskDuration;
+        // newTaskDuration.push(taskDuration);
+        // update original / make API request to update data on backend
+        // taskDurations = newTaskDuration;
+        console.log("Обновили длительность")
+        console.log(taskDuration);
     }
 
     function deleteTaskDuration(e) {
@@ -362,28 +380,45 @@ export function GanttChart(ganttChartElement, tasks, taskDurations) {
         const newTaskDurations = taskDurations.filter(
             (taskDuration) => taskDuration.id !== taskDurationToDelete.id
         );
+        console.log("Удалили длительность")
+        console.log(taskDurationToDelete);
+        deleteDuration(taskDurationToDelete).then(r => r);
         // update original / make API request to update data on backend
         taskDurations = newTaskDurations;
+
     }
 
-    function handleAddTaskDurationForm(e) {
+    async function handleAddTaskDurationForm(e) {
         e.preventDefault();
-        const task = parseInt(e.target.elements["select-task"].value);
+        const task = e.target.elements["select-task"].value;
         const start = e.target.elements["start-date"].value;
         const end = e.target.elements["end-date"].value;
         const startDate = new Date(start);
         const endDate = new Date(end);
 
-        const timeStamp = Date.now();
-        const taskDuration = {
-            id: `${timeStamp}`,
+        let taskDuration = {
+            id: "",
             start: startDate,
             end: endDate,
             task: task,
         };
 
         // add task duration
+        console.log(taskDurations);
+
+        let r = await insertDuration(taskDuration);
+        console.log(r.id);
+        taskDuration = {
+            id: r.id,
+            start: new Date(r.start),
+            end: new Date(r.end),
+            task: r.task
+        };
+        console.log("Добавить надо:")
+        console.log(taskDuration);
         taskDurations.push(taskDuration);
+        console.log("Добавили? длительность")
+        console.log(taskDurations);
         // find gantt-time-period-cell start position
         const startCell = containerTimePeriods.querySelector(
             `div[data-task="${taskDuration.task}"][data-date="${start}"]`
@@ -403,7 +438,13 @@ export function GanttChart(ganttChartElement, tasks, taskDurations) {
             return Math.max(a, b.id);
         }, -Infinity);
         // create new task
-        tasks.push({ id: maxIdVal + 1, name: newTaskName });
+        console.log("Добавили задачу");
+        insertTask(newTaskName).then(r => {
+            tasks.push({ id: r.id, name: r.name });
+            console.log({ id: r.id, name: r.name })
+            createGrid();
+        })
+
         // re-create grid
         createGrid();
     }
@@ -411,12 +452,16 @@ export function GanttChart(ganttChartElement, tasks, taskDurations) {
     function updateTasks(e) {
         const { id } = e.target.parentNode;
         const { value } = e.target.parentNode.firstChild;
-        const idNum = parseInt(id);
-        let newTasks = tasks.filter((task) => task.id !== idNum);
-        newTasks.push({ id: idNum, name: value });
+        let newTasks = tasks.filter((task) => task.id !== id);
+        updateTask(id, value).then(r => {
+            newTasks.push({ id: r.id, name: r.name });
+        })
 
         newTasks = newTasks.sort((a, b) => a.id - b.id);
         // update original / make API request to update data on backend
+        console.log("Изменили задачу")
+        console.log(id, value);
+
         tasks = newTasks;
 
         // update tasks select
@@ -433,17 +478,18 @@ export function GanttChart(ganttChartElement, tasks, taskDurations) {
     }
 
     function deleteTask(e) {
-        const id = parseInt(e.target.parentNode.id);
+        const id = e.target.parentNode.id;
         // filter out task to delete
-        const newTasks = tasks.filter((task) => task.id !== id);
         // update original / make API request to update data on backend
-        tasks = newTasks;
+        tasks = tasks.filter((task) => task.id !== id);
+        console.log("Удалили? задачу. тут отдельные код")
+        console.log(id);
 
+        delete_task(id).then(r => r);
         // delete any taskDurations associated with the task
-        const newTaskDurations = taskDurations.filter(
+        taskDurations = taskDurations.filter(
             (taskDuration) => taskDuration.task !== id
         );
-        taskDurations = newTaskDurations;
         createGrid();
     }
 

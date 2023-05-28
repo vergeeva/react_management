@@ -47,6 +47,10 @@ export async function refresh()
     }
     catch (e)
     {
+        if (e.response?.data?.detail === "Please provide refresh token")
+        {
+            return e.response?.data?.detail;
+        }
         console.log(e.response?.data?.detail);
         return e.response?.data?.detail;
     }

@@ -35,6 +35,7 @@ const LoginForm = () => {
                 if (await checkIsAuth())
                 {
                     await setIsAuth(checkIsAuth());
+                    await window.location.reload();
                 }
             }}>
                 Войти

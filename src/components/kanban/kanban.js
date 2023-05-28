@@ -65,7 +65,6 @@ function KanbanBoard() {
                 board.columns[i].title = columns.columns[i].title;
                 board.columns[i].cards = columns.columns[i].cards;
                 await console.log(board.columns[i]);
-                await console.log("ПОЧЕМУ НЕ РАБОТАЕТ");
             }
             await console.log(board);
         })();
@@ -74,14 +73,6 @@ function KanbanBoard() {
     return (
         <div className="kanbans">
             <UncontrolledBoard board={board}/>
-            <MyButton
-            onClick={async ()=>{
-                await console.log(board);
-                await console.log(columns);
-                board=columns;
-                await console.log(board);
-            }}
-            > тык </MyButton>
         </div>
     );
 }
