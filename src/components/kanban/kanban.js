@@ -2,10 +2,7 @@ import '../kanban/components/styles.scss';
 import React, {useEffect, useState} from "react";
 import Board from "./components/Board/Board";
 import {getAllColumns} from "../../requests_part/functions/kanban/kanban";
-import {checkIsAuth} from "../auth/functions/validation";
-import {refresh} from "../auth/functions/auth";
-import MyButton from "../UI/Button/MyButton";
-import {getAllTasks} from "../../requests_part/functions/toDoList/toDoList";
+
 
 let board = {
     columns: [

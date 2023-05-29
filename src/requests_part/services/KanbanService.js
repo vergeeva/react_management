@@ -38,12 +38,13 @@ export default class KanbanService {
             });
     }
 
-    static async updateTask(Card)
+    static async updateTask(Task, CardID)
     {
-        return $api.put(`/api/taskInCards/${Card.id}`,
+        return $api.put(`/api/taskInCards/${Task.id}`,
             {
-                title: Card.title,
-                description: Card.description
+                kanbanCardId: CardID,
+                title: Task.title,
+                description: Task.description
             });
     }
 

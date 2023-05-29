@@ -4,7 +4,8 @@ import MyButton from '../UI/Button/MyButton'
 import {AuthContext} from '../../context/authContext'
 import {loginUser} from "./functions/auth";
 import {checkIsAuth} from "./functions/validation";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import InputText from "../UI/Input/InputText";
 
 
 const LoginForm = () => {
@@ -14,34 +15,38 @@ const LoginForm = () => {
     const [statusLoginValue, setStatusLoginValue] = useState('');
     return (
         <div className={classNames.loginContainer}>
-            <input
-                className={classNames.loginInput}
+            <InputText
+                name={"Логин"}
                 type="text"
                 placeholder={"Логин..."}
                 onChange={event => setLogin(event.target.value)}
                 value={login}
             />
-            <input
-                className={classNames.loginInput}
+            <InputText
+                name={"Пароль"}
                 type="password"
                 placeholder={"Пароль..."}
                 onChange={event => setPassword(event.target.value)}
                 value={password}
             />
-            <MyButton
-            onClick={async ()=>{
-                await setStatusLoginValue(await loginUser(login, password));
-                // await console.log(statusLoginValue);
-                if (await checkIsAuth())
-                {
-                    await setIsAuth(checkIsAuth());
-                    await window.location.reload();
-                }
-            }}>
-                Войти
-            </MyButton>
+            <div style={{display:"flex", justifyContent:"center"}}>
+                <MyButton style={{padding: 10, width: "50%"}}
+                          onClick={async ()=>{
+                              await setStatusLoginValue(await loginUser(login, password));
+                              // await console.log(statusLoginValue);
+                              if (await checkIsAuth())
+                              {
+                                  await setIsAuth(checkIsAuth());
+                                  await window.location.reload();
+                              }
+                          }}>
+                    Войти
+                </MyButton>
+            </div>
             <label style={{color:'red'}}>{statusLoginValue}</label>
-            {/*<p><a href={"#"}>Забыли пароль?</a></p>*/}
+            <div style={{display:"flex", justifyContent:"center"}}>
+                <Link style={{margin:10}}>Забыли пароль?</Link>
+            </div>
         </div>
     );
 };

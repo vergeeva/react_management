@@ -15,7 +15,12 @@ import {
 } from './services'
 import { moveCard, moveColumn, addColumn, removeColumn, changeColumn, addCard, removeCard } from '../../services/helpers'
 import {partialRight, when} from "../../services/utils";
-import {deleteTask, insertTaskToCard, updateKanbanCard} from "../../../../requests_part/functions/kanban/kanban";
+import {
+    deleteTask,
+    insertTaskToCard,
+    updateKanbanCard,
+    updateTask
+} from "../../../../requests_part/functions/kanban/kanban";
 
 const Columns = forwardRef((props, ref) => <div ref={ref} style={{ whiteSpace: 'wrap' }} {...props} />)
 
@@ -58,8 +63,14 @@ function UncontrolledBoard({
         const reorderedBoard = moveCallback(board, source, destination)
         when(notifyCallback)((callback) => callback(reorderedBoard, subject, source, destination))
         console.log("переместили карту?")
-        console.log(source);
-        console.log(destination);
+        console.log(subject); // Что переместили
+        console.log(destination.toColumnId);
+        if (destination.toColumnId)
+        {
+            updateTask(subject, destination.toColumnId).then(r => {
+                console.log(r);
+            });
+        }
         setBoard(reorderedBoard)
     }
 

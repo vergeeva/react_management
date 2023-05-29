@@ -3,9 +3,11 @@ import RegisterForm from "../components/auth/RegisterForm";
 
 const Registration = () => {
     return (
-        <div>
-            Регистрация
-            <RegisterForm/>
+        <div style={{display: "flex", justifyContent:"center"}}>
+            <div>
+                <h1 style={{textAlign:"center"}}>Заполните необходимые поля</h1>
+                <RegisterForm/>
+            </div>
         </div>
     );
 };

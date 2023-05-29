@@ -113,10 +113,10 @@ export async function insertTaskToCard(ColumnId, Card){
     }
 }
 
-export async function updateTask(Card){
+export async function updateTask(Task, CardID){
     try
     {
-        const response = await KanbanService.updateTask(Card);
+        const response = await KanbanService.updateTask(Task, CardID);
         console.log(response);
         return response.data;
     }

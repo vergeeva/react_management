@@ -3,6 +3,7 @@ import MyButton from '../UI/Button/MyButton'
 import {registerUser} from "./functions/auth";
 import {useNavigate} from "react-router-dom";
 import {checkFieldsEmpty, checkLengthPassword, checkMail, checkPasswords} from "./functions/validation";
+import InputText from "../UI/Input/InputText";
 
 
 const RegisterForm = () => {
@@ -20,49 +21,57 @@ const RegisterForm = () => {
     const [statusValue, setStatusValue] = useState('');
     return (
         <div style={{display:'grid', maxWidth:'50%'}}>
-            <input
+            <InputText
+                name={"Имя"}
                 type="text"
                 placeholder={"Ваше имя..."}
                 onChange={event => setUser({...user, firstName:event.target.value})}
                 value={user.firstName}
             />
-            <input
+            <InputText
+                name={"Фамилия"}
                 type="text"
                 placeholder={"Фамилия..."}
                 onChange={event => setUser({...user, lastName:event.target.value})}
                 value={user.lastName}
             />
-            <input
+            <InputText
+                name={"Отчество"}
                 type="text"
                 placeholder={"Отчество..."}
                 onChange={event => setUser({...user, patronymic:event.target.value})}
                 value={user.patronymic}
             />
-            <input
+            <InputText
+                name={"Почта"}
                 type="email"
                 placeholder={"Электронная почта..."}
                 onChange={event => setUser({...user, email:event.target.value})}
                 value={user.email}
             />
-            <input
+            <InputText
+                name={"Логин"}
                 type="text"
                 placeholder={"Логин..."}
                 onChange={event => setUser({...user, login:event.target.value})}
                 value={user.login}
             />
-            <input
+            <InputText
+                name={"Пароль"}
                 type="password"
                 placeholder={"Пароль..."}
                 onChange={event => setUser({...user, password:event.target.value})}
                 value={user.password}
             />
-            <input
+            <InputText
+                name={"Повторите пароль"}
                 type="password"
                 placeholder={"Повторите пароль..."}
                 onChange={event => setUser({...user, passwordConfirm:event.target.value})}
                 value={user.passwordConfirm}
             />
             <MyButton
+                style={{padding:10}}
             onClick={async ()=>{
                     if (await checkFieldsEmpty(user))
                     {
@@ -90,7 +99,7 @@ const RegisterForm = () => {
                     }
             }}
             >Регистрация</MyButton>
-                <label style={{color:'red'}}>{statusValue}</label>
+                <label style={{color:'red', textAlign:"center", marginTop:10}}>{statusValue}</label>
         </div>
     )
 };
