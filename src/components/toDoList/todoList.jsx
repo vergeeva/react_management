@@ -90,8 +90,7 @@ const TodoList = () => {
             <div className={classes.ListToDo}>
                 <ToDoForm addTask={AddTask}/>
                 {
-                    toDoElements
-                    ?
+                    toDoElements.length !==0 ?
                     toDoElements.map(element =>
                     (
                     <ToDoElement
@@ -101,9 +100,7 @@ const TodoList = () => {
                     removeTask={RemoveTask}
                     updateTask={UpdateTask}
                     setTask={setTask}
-                    />
-                    )
-                    )
+                    />))
                     : <div> Добавьте задачу в список </div>
                 }
             </div>

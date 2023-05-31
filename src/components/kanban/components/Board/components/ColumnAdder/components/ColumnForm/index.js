@@ -6,7 +6,6 @@ function ColumnForm({ onConfirm, onCancel }) {
 
     function addColumn(event) {
         event.preventDefault()
-
         when(inputColumnTitle.current.value)(onConfirm)
     }
 

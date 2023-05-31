@@ -10,7 +10,6 @@ const ToDoElement = (props) => {
         rootClasses.push(classes.strike);
     }
 
-
     if (!isEditing) {
         return (
             <div key={props.todo.idTaskInList} className={classes.itemTodo}>
@@ -31,7 +30,6 @@ const ToDoElement = (props) => {
                         ✕
                     </div>
                 </div>
-
             </div>
         )
     }

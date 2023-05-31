@@ -433,19 +433,16 @@ export function GanttChart(ganttChartElement, tasks, taskDurations) {
     function handleAddTaskForm(e) {
         e.preventDefault();
         const newTaskName = e.target.elements[0].value;
-        // find the largest task number, add 1 for new task - else could end up with tasks with same id
-        const maxIdVal = tasks.reduce(function (a, b) {
+        tasks.reduce(function (a, b) {
             return Math.max(a, b.id);
         }, -Infinity);
-        // create new task
         console.log("Добавили задачу");
         insertTask(newTaskName).then(r => {
             tasks.push({ id: r.id, name: r.name });
             console.log({ id: r.id, name: r.name })
             createGrid();
         })
-
-        // re-create grid
+        // Перерисовка
         createGrid();
     }
 
