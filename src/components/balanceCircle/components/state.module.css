@@ -1,0 +1,62 @@
+.polygonContainer{
+    background-color: #ffffff;
+    font-family: Helvetica Neue, Arial, sans-serif;
+}
+.LabelText {
+    font-family: Helvetica Neue, Arial, sans-serif;
+    font-size: 15px;
+    fill: #000000;
+}
+.circleLine {
+    /* делаем его прозрачным и добавляем рамку */
+    fill: transparent;
+    stroke:  #7A956A;
+    z-index: 10;
+}
+
+.polygonEL {
+    /* цвет заливки и прозрачность */
+    fill: #8B7894;
+    opacity: 0.75;
+    border: 2px;
+}
+
+/*Стили для статсов*/
+.buttonStyle{
+    color: #c879ff;
+    background-color: rgba(131, 204, 94, 0.27);
+    border: none;
+    border-radius: 3px;
+    height: 30px;
+    width: 30px;
+    margin-left: 10px;
+}
+
+.buttonContainer{
+    display: flex;
+}
+
+.statsContainer{
+    display: flex;
+    margin: 5px;
+    padding: 5px;
+    width: 250px;
+}
+.itemLabel{
+    width: 200px;
+    text-align: center;
+    word-wrap: break-word;
+}
+.spanStyle{
+    text-align: center;
+    /*margin-right: auto;*/
+    display: flex;
+    align-items: center;
+}
+
+.allContainer
+{
+    display: flex;
+    justify-content: center;
+}
+

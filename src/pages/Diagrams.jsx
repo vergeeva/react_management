@@ -8,8 +8,7 @@ import Matrix from "../components/matrix/Matrix";
 const Diagrams = () => {
     const options = [
         {value:'gantt', name: 'Диаграмма Гантта'},
-        {value:'balanceCircle', name: 'Колесо жизненного баланса'},
-        {value:'matrix', name: 'Матрица Эйзенхауэра'}
+        {value:'balanceCircle', name: 'Колесо жизненного баланса'}
     ]
     const [selectedDiagram, setSelectedDiagram] = useState(options[0].value);
     const Diagram = () =>{
@@ -17,12 +16,11 @@ const Diagrams = () => {
         {
             case 'gantt': return <GanttChart/>;
             case 'balanceCircle': return <Circle/>;
-            case 'matrix': return <Matrix/>;
             default:return <p>Выберите вид диаграммы</p>
         }
     }
     return (
-        <div style={{backgroundColor:"white"}}>
+        <div style={{backgroundColor:"white", margin: '16px'}}>
             <div>
                 <label style={{fontFamily: "Open Sans, serif", fontSize:'17px', margin: '16px'}}>Выберите диаграмму:</label>
                 <MySelect

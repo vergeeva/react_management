@@ -1,13 +1,14 @@
 .loginContainer{
     display: grid;
-    background-color: rgba(236, 253, 228, 0.57);
+    background-color: rgba(236, 253, 228, 0.95);
     border-radius: 7px;
-    max-width: 300px;
+    min-width: 300px;
+    padding: 10px;
     justify-content: center;
 }
 
 .loginInput{
-    padding: 5px;
+    padding: 10px;
     margin: 10px;
     border-radius: 3px;
     border: 0.5px;
