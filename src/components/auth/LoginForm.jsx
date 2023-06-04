@@ -12,6 +12,7 @@ const LoginForm = () => {
     const [login, setLogin]=useState('');
     const [password, setPassword]=useState('');
     const {setIsAuth} = useContext(AuthContext);
+    const router = useNavigate();
     const [statusLoginValue, setStatusLoginValue] = useState('');
     return (
         <div className={classNames.loginContainer}>
@@ -37,6 +38,7 @@ const LoginForm = () => {
                               if (await checkIsAuth())
                               {
                                   await setIsAuth(checkIsAuth());
+                                  router("/");
                                   await window.location.reload();
                               }
                           }}>

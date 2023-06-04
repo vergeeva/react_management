@@ -1,5 +1,5 @@
 import React, {useContext, useState} from 'react';
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import classes from './Navigation.module.css';
 import {AuthContext} from "../../../context/authContext";
 import {logoutUser} from "../../auth/functions/auth";
@@ -9,6 +9,7 @@ import {CreateKanbanDesk, getAllCards} from "../../../requests_part/functions/ka
 const NavBar = () => {
     const [isHover, setIsHover] = useState(false);
     const {isAuth, setIsAuth} = useContext(AuthContext);
+    const router = useNavigate();
     return (
             <nav className={classes.mainNavigation}>
                 <div className={classes.mainNavigationWrapper}>
@@ -45,11 +46,13 @@ const NavBar = () => {
                                 isAuth
                                 ?
                                     <div className={classes.userNavigation}>
-                                        <li><Link className={classes.links} to="/profile">Профиль</Link></li>
+                                        <li><Link className={classes.links} to="/profile"
+                                        >Профиль</Link></li>
                                         <li><Link className={classes.links} to="/"
                                         onClick={async () =>{
                                             await logoutUser();
                                             await setIsAuth(checkIsAuth());
+                                            await window.location.reload();
                                         }
                                         }
                                         >Выйти</Link></li>

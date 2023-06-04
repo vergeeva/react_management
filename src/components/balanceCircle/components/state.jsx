@@ -56,8 +56,14 @@ const State = (props) => {
             <span>{props.state.value}</span>
             <MyButton
                 onClick={() => {
-                    props.updateState(props.state)
-                    setIsEditing(false);
+                    if (props.state.value !== "")
+                    {
+                        props.updateState(props.state)
+                        setIsEditing(false);
+                    }
+                    else {
+                        alert("Заполните поле наименования!");
+                    }
                 }}
             >
                 ✓

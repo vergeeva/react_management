@@ -30,6 +30,14 @@
     height: 30px;
     width: 30px;
     margin-left: 10px;
+    -webkit-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+    -moz-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+    box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+}
+
+.buttonStyle:hover {
+    background-color: rgba(131, 204, 94, 0.76);
+    cursor: pointer;
 }
 
 .buttonContainer{

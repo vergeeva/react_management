@@ -25,6 +25,7 @@ export async function checkLengthPassword(password)
 export async function checkIsAuth(){
     try{
         if (document.cookie.split("; ")[1].split("=")[1] === 'True') {
+            console.log(document.cookie.split("; ")[1].split("=")[1]);
             return true;
         }
     }

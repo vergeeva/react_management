@@ -17,9 +17,10 @@ const ItemForm = (props) => {
         }
     }
     return (
-        <form>
+        <form style={{display: "grid"}}>
             <InputText
                 name={"Название сферы жизни"}
+                style={{margin: 10}}
                 type="text"
                 placeholder={"Сфера жизни..."}
                 onChange={(e) => {
@@ -27,7 +28,9 @@ const ItemForm = (props) => {
                 }}
                 value={userInput.label}
             />
-            <input
+            <InputText
+                name={"Оценка сферы жизни (от 0 до 100):"}
+                style={{margin: 10}}
                 onChange={async (e) => {
                     await setUserInput({...userInput, value: Number(e.target.value)});
                     if (e.target.value > 100 || e.target.value < 0)
@@ -40,6 +43,7 @@ const ItemForm = (props) => {
                 type={"number"} min={0} max={100}
             />
             <MyButton
+                style={{width: 150, padding:10, marginLeft:"30%"}}
                 onClick={handleSubmit}
             >Добавить сферу</MyButton>
         </form>
