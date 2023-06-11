@@ -42,7 +42,15 @@ const State = (props) => {
         return (<div>
             <InputText
             value={props.state.labelItem}
-            onChange={async e => await props.setItem(props.state.idBalance, {...props.state, labelItem: e.target.value})}
+            onChange={async e => {
+                if (e.target.value !== "")
+                {
+                    await props.setItem(props.state.idBalance, {...props.state, labelItem: e.target.value})
+                }
+                else {
+                    alert("Поле наименования не может быть пустым");
+                }
+            }}
             />
             <input
                 type="range"

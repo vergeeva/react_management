@@ -22,6 +22,7 @@ const Profile = () => {
         })();
     },[]);
         const router = useNavigate();
+    const [statusValue, setStatusValue] = useState('');
     return (
         <div style={{display:"flex", justifyContent:"center"}}>
             <div style={{display:'grid'}}>
@@ -57,10 +58,11 @@ const Profile = () => {
                 <div>
                     <MyButton
                         onClick={async () =>{
-                            await updateUserProfile(user);
+                            await setStatusValue(await updateUserProfile(user));
                         }}
                     >Сохранить изменения</MyButton>
                 </div>
+                <label style={{color:'red'}}>{statusValue}</label>
             </div>
         </div>
 
