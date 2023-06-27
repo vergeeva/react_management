@@ -67,7 +67,7 @@
     transform: scale(1.05) rotate(1deg);
 }
 .projcard:hover .projcardBar {
-    width: 70px;
+    /*width: 70px;*/
 }
 .projcardTextbox {
     position: absolute;
@@ -112,26 +112,12 @@
     font-size: 24px;
     margin-bottom: 15px;
 }
-.projcardSubtitle {
-    font-family: 'Voces', 'Open Sans', arial, sans-serif;
-    color: #888;
-}
-.projcardBar {
-    left: -2px;
-    width: 50px;
-    height: 5px;
-    margin: 10px 0;
-    border-radius: 5px;
-    background-color: #424242;
-    transition: width 0.2s ease;
-}
+
 .projcard::before { background-image: linear-gradient(-70deg, #cc9af8, transparent 50%); }
 .projcard:nth-child(2n)::before { background-image: linear-gradient(-250deg, #c879ff, transparent 50%); }
 .projcardDescription {
-    /*z-index: 10;*/
     font-size: 20px;
     color: rgba(42, 39, 39, 0.66);
-    height: 125px;
     overflow: hidden;
     text-overflow: ellipsis;
 }
